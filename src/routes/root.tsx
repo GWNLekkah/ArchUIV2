@@ -1,197 +1,62 @@
-"use client";
-import {
-  Menu,
-  Button,
-  Container,
-  Typography,
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  Collapse,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import Item from "@mui/material/Grid";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import * as React from "react";
-import { NextUIProvider } from "@nextui-org/react";
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import React from "react";
 
-function MainMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleCloseClassifyIssues = () => {
-    console.log("classify");
-    setAnchorEl(null);
-  };
-  const [openCollapse, setOpenCollapse] = React.useState(false);
-  const handleCollapseClick = () => {
-    setOpenCollapse(!openCollapse);
-  };
-
+export default function Root() {
   return (
-    <Grid container justifyContent="center">
-      <Item style={{ paddingTop: "4px" }}>
-        <Button
-          id="menu-button"
-          aria-aria-controls={open ? "menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-        >
-          <MenuIcon />
-        </Button>
-        <Menu
-          id="menu"
-          aria-labelledby="menu-button"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-        >
-          <ListItemButton onClick={handleCollapseClick}>
-            <ListItemText primary="ML Models" />
-            {openCollapse ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openCollapse} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText primary="Ontologies" />
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText primary="Word Embeddings" />
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText primary="ML Models" />
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText primary="Predict with ML Models" />
-              </ListItemButton>
-            </List>
-          </Collapse>
-          <ListItemButton onClick={handleCloseClassifyIssues}>
-            <ListItemText primary="Classify Issues" />
-          </ListItemButton>
-          <ListItemButton onClick={handleCloseClassifyIssues}>
-            <ListItemText primary="Statistics" />
-          </ListItemButton>
-          <ListItemButton onClick={handleCloseClassifyIssues}>
-            <ListItemText primary="Tags" />
-          </ListItemButton>
-          <ListItemButton onClick={handleCloseClassifyIssues}>
-            <ListItemText primary="Search" />
-          </ListItemButton>
-          <ListItemButton onClick={handleCloseClassifyIssues}>
-            <ListItemText primary="Login" />
-          </ListItemButton>
-        </Menu>
-      </Item>
-      <Item>
-        <Button>
-          <Typography variant="h4">Arch UI</Typography>
-        </Button>
-      </Item>
-    </Grid>
-  );
-}
-
-export default function Home() {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-  return (
-    <NextUIProvider>
-      <Container style={{ marginTop: "10px", marginBottom: "10px" }}>
+    <>
+      <div className="container mx-auto pb-4 pl-4 pr-4">
+        {/* Home page info */}
         <div>
-          The current theme is: {theme}
-          <button onClick={() => setTheme("light")}>Light Mode</button>
-          <button onClick={() => setTheme("dark")}>Dark Mode</button>
-        </div>
-        <MainMenu />
-        <Container>
-          <Typography style={{ marginTop: "10px" }} variant="h3">
-            Home page
-          </Typography>
+          <p className="text-4xl font-bold pb-4">Home Page</p>
           <p>
             ArchUI aims to combine various approaches to detecting architectural
             knowledge in Jira and Github repositories.
           </p>
-          <p>
+          <p className="pt-4">
             Use the tabs in the navbar to view currently available ML models,
             create new ones, or run them on a project. Use the classify Issues
             tab to manually label issues. More detailed information on each tab
             is available under the divider and in the project readme.
           </p>
-
-          <hr style={{ marginTop: "10px", marginBottom: "10px" }} />
-        </Container>
-
-        <Grid container justifyContent="space-evenly">
-          <Grid item xs={12} sm={5}>
-            <Item style={{ marginTop: "10px" }}>
-              <Typography variant="h4">ML Models: Word Embeddings</Typography>
+        </div>
+        {/* Divider */}
+        <hr className="mt-4 mb-4" />
+        {/* Two columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
+          {/* Left column */}
+          <div>
+            {/* ML Models: Word Embeddings */}
+            <div>
+              <p className="text-xl font-bold">ML Models: Word Embeddings</p>
               <p>
                 Several machine learning model types require a word embedding to
                 accurately generate features. Word embeddings can be managed:
                 created, trained, deleted. Word embeddings fit with specific
                 feature generators:
               </p>
-              <List style={{ paddingLeft: "15px" }}>
-                <ListItem
-                  disablePadding={true}
-                  sx={{ listStyleType: "disc", display: "list-item" }}
-                >
-                  <ListItemText>
-                    <em>Word2VecGenerator</em> embedding fits with{" "}
-                    <em>Word2Vec</em> feature generator
-                  </ListItemText>
-                </ListItem>
-                <ListItem
-                  disablePadding={true}
-                  sx={{ listStyleType: "disc", display: "list-item" }}
-                >
-                  <ListItemText>
-                    <em>Doc2VecGenerator</em> embedding fits with{" "}
-                    <em>Doc2Vec</em> feature generator
-                  </ListItemText>
-                </ListItem>
-                <ListItem
-                  disablePadding={true}
-                  sx={{ listStyleType: "disc", display: "list-item" }}
-                >
-                  <ListItemText>
-                    <em>DictionaryGenerator</em> embedding fits with{" "}
-                    <em>BOWFrequency</em> and <em>BOWNormalized</em> feature
-                    generators
-                  </ListItemText>
-                </ListItem>
-                <ListItem
-                  disablePadding={true}
-                  sx={{ listStyleType: "disc", display: "list-item" }}
-                >
-                  <ListItemText>
-                    <em>IDFGenerator</em> embedding fits with{" "}
-                    <em>TfidfGenerator</em> feature generator
-                  </ListItemText>
-                </ListItem>
-              </List>
+              <ul className="list-disc pl-4">
+                <li>
+                  <em>Word2VecGenerator</em> embedding fits with{" "}
+                  <em>Word2Vec</em> feature generator
+                </li>
+                <li>
+                  <em>Doc2VecGenerator</em> embedding fits with <em>Doc2Vec</em>{" "}
+                  feature generator
+                </li>
+                <li>
+                  <em>DictionaryGenerator</em> embedding fits with{" "}
+                  <em>BOWFrequency</em> and <em>BOWNormalized</em> feature
+                  generators
+                </li>
+                <li>
+                  <em>IDFGenerator</em> embedding fits with{" "}
+                  <em>TfidfGenerator</em> feature generator
+                </li>
+              </ul>
               <p>Note that not all feature generators require an embedding.</p>
-            </Item>
-            <Item style={{ marginTop: "10px" }}>
-              <Typography variant="h4">Managing ML Models</Typography>
+            </div>
+            {/* Managing ML Models */}
+            <div>
+              <p className="text-xl pt-4 font-bold">Managing ML Models</p>
               <p>
                 In this application, the term 'model' can refer to two things:
                 either the model configuration, which is used by the ML
@@ -226,9 +91,10 @@ export default function Home() {
                 the previously entered options, except for the model config's
                 name.
               </p>
-            </Item>
-            <Item style={{ marginTop: "10px" }}>
-              <Typography variant="h4">Login</Typography>
+            </div>
+            {/* Login */}
+            <div>
+              <p className="text-xl pt-4 font-bold">Login</p>
               <p>
                 In the Login view, you can log in with your username and
                 password, which is required to have to change any data (you can
@@ -238,9 +104,10 @@ export default function Home() {
                 essentially logging in to the database, so if you change the
                 database URL, you will need to log in again.
               </p>
-            </Item>
-            <Item style={{ marginTop: "10px" }}>
-              <Typography variant="h4">ML Models: Ontologies</Typography>
+            </div>
+            {/* ML Models: Ontologies */}
+            <div>
+              <p className="text-xl pt-4 font-bold">ML Models: Ontologies</p>
               <p>
                 You can upload ontology files for use in word embeddings and ML
                 models on the Ontologies page under ML models.{" "}
@@ -251,11 +118,13 @@ export default function Home() {
                   parameter should all be using the same ontology file.
                 </em>
               </p>
-            </Item>
-          </Grid>
-          <Grid container item xs={12} sm={5}>
-            <Item style={{ marginTop: "10px" }}>
-              <Typography variant="h4">ML Models: Predicting</Typography>
+            </div>
+          </div>
+          {/* Right column */}
+          <div>
+            {/* ML Models: Predicting */}
+            <div>
+              <p className="text-xl font-bold">ML Models: Predicting</p>
               <p>
                 In the "Predict With ML Models" tab, you will see options to
                 select any number of models, and select the project(s) they will
@@ -267,9 +136,10 @@ export default function Home() {
                 so that not all data is displayed at once, and you can focus on
                 what you're interested in.
               </p>
-            </Item>
-            <Item style={{ marginTop: "10px" }}>
-              <Typography variant="h4">Classify Issues</Typography>
+            </div>
+            {/* Classify Issues */}
+            <div>
+              <p className="text-xl pt-4 font-bold">Classify Issues</p>
               <p>
                 In the "classify Issues" page accessible from the site's navbar,
                 you will find a list of available queries, as described above,
@@ -307,17 +177,19 @@ export default function Home() {
                 to the column headers. Also note the search bar and pagination
                 at the bottom.
               </p>
-            </Item>
-            <Item style={{ marginTop: "10px" }}>
-              <Typography variant="h4">Statistics</Typography>
+            </div>
+            {/* Statistics */}
+            <div>
+              <p className="text-xl pt-4 font-bold">Statistics</p>
               <p>
                 In the statistics overview, generate a set of graphics to get an
                 overview of the issue characteristics per project software
                 domain, divided per label type.
               </p>
-            </Item>
-            <Item style={{ marginTop: "10px" }}>
-              <Typography variant="h4">Tags</Typography>
+            </div>
+            {/* Tags */}
+            <div>
+              <p className="text-xl pt-4 font-bold">Tags</p>
               <p>
                 Tags are applied to issues and are used in queries to group
                 issues which all have a certain (set of) tags together, for
@@ -328,14 +200,15 @@ export default function Home() {
                 query view, hover over the tag name to see the description in a
                 tooltip.
               </p>
-            </Item>
-            <Item style={{ marginTop: "10px" }}>
-              <Typography variant="h4">Search</Typography>
+            </div>
+            {/* Search */}
+            <div>
+              <p className="text-xl pt-4 font-bold">Search</p>
               <p>In the search tab, find relevant issues based on keywords.</p>
-            </Item>
-          </Grid>
-        </Grid>
-      </Container>
-    </NextUIProvider>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
