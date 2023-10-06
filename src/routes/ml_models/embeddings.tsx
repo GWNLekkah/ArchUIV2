@@ -549,8 +549,8 @@ export default function Embeddings() {
                     className="text-xl font-bold leading-6 text-white"
                   >
                     {modalType === "create"
-                      ? "Create embedding"
-                      : "Edit embedding: NAME - ID"}
+                      ? "Create new embedding"
+                      : "Edit embedding: " + selectedEmbedding}
                   </Dialog.Title>
 
                   <div className="mt-4">
@@ -606,43 +606,44 @@ export default function Embeddings() {
                       embeddingTypeOptions={embeddingTypeOptions}
                     />
                     {EmbeddingOptions()}
-                    {modalType === "create" ? (
-                      <div className="text-white flex mt-4 justify-center">
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={() => {
-                            createEmbedding();
-                            setIsOpen(false);
-                          }}
-                        >
-                          Create embedding
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="text-white flex items-center space-x-4 mt-3 justify-between">
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={() => {
-                            updateEmbedding();
-                            setIsOpen(false);
-                          }}
-                        >
-                          Edit embedding
-                        </button>
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={() => {
-                            deleteEmbedding();
-                            setIsOpen(false);
-                          }}
-                        >
-                          Delete embedding
-                        </button>
-                      </div>
-                    )}
+                    <div className="text-white flex items-center space-x-4 mt-3 justify-between">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={() => {
+                          createEmbedding();
+                          setIsOpen(false);
+                        }}
+                      >
+                        Create embedding
+                      </button>
+                      {modalType === "edit" ? (
+                        <>
+                          <button
+                            type="button"
+                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                            onClick={() => {
+                              updateEmbedding();
+                              setIsOpen(false);
+                            }}
+                          >
+                            Edit embedding
+                          </button>
+                          <button
+                            type="button"
+                            className="inline-flex justify-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                            onClick={() => {
+                              deleteEmbedding();
+                              setIsOpen(false);
+                            }}
+                          >
+                            Delete embedding
+                          </button>{" "}
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
